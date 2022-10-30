@@ -1,0 +1,21 @@
+#!/bin/bash -e
+
+TARGET=aarch64-unknown-linux-gnu # alternative platforms: armv7-unknown-linux-gnueabihf
+IP=$1
+USER=$2
+
+# check for dependencies
+crs=$(cargo install --list | grep  cross | wc -l)
+if (( crs == 0 ))
+then
+  echo "[INFO] Installing cross"
+  cargo install -f cross
+else
+  echo "[INFO] Skipping 'Cross' installation as dependency already met"
+fi
+
+# PI build
+cross build --release --target $TARGET
+
+# deploying code
+scp -r ./target/$TARGET/release/self-drive $USER@$IP:/home/selfdrive/source
