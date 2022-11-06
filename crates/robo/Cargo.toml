@@ -1,12 +1,9 @@
 [package]
-name = "self-drive"
+name = "robo"
 version = "0.1.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-robo = { path = "./crates/robo", version = "0.1.0" }
-
-[dev-dependencies]
-cross = "0.2.4"
+rppal = "0.13.1"
