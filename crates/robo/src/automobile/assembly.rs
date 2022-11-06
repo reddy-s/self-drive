@@ -1,5 +1,5 @@
 use std::error::Error;
-use crate::automobile::activity::Transmission;
+use crate::automobile::activity::{Steer, Transmission};
 use crate::automobile::components::{Drivetrain, Wheel, WheelOrientation};
 
 #[derive(Debug)]
@@ -55,4 +55,12 @@ impl Engine {
   pub fn reverse(&mut self) -> () {
     self.drive_train.reverse()
   }
+
+  pub fn turn_left(&mut self) -> () { self.drive_train.left() }
+
+  pub fn turn_right(&mut self) -> () { self.drive_train.right() }
+
+  pub fn reverse_left(&mut self) -> () { self.drive_train.reverse_left() }
+
+  pub fn reverse_right(&mut self) -> () { self.drive_train.reverse_right() }
 }

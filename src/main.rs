@@ -26,15 +26,39 @@ fn main() -> Result<(), Box<dyn Error>> {
     loop {
         println!("[INFO] Stopping");
         aston_martin.stop();
-        thread::sleep(Duration::from_millis(10000));
+        thread::sleep(Duration::from_millis(5000));
         println!("[INFO] Driving");
         aston_martin.drive();
         thread::sleep(Duration::from_millis(3000));
         println!("[INFO] Stopping");
         aston_martin.stop();
-        thread::sleep(Duration::from_millis(10000));
+        thread::sleep(Duration::from_millis(5000));
         println!("[INFO] Reversing");
         aston_martin.reverse();
+        thread::sleep(Duration::from_millis(3000));
+        println!("[INFO] Stopping");
+        aston_martin.stop();
+        thread::sleep(Duration::from_millis(5000));
+        println!("[INFO] Turning left");
+        aston_martin.turn_left();
+        thread::sleep(Duration::from_millis(3000));
+        println!("[INFO] Stopping");
+        aston_martin.stop();
+        thread::sleep(Duration::from_millis(5000));
+        println!("[INFO] Turning right");
+        aston_martin.turn_right();
+        thread::sleep(Duration::from_millis(3000));
+        println!("[INFO] Stopping");
+        aston_martin.stop();
+        thread::sleep(Duration::from_millis(5000));
+        println!("[INFO] Reverse left");
+        aston_martin.reverse_left();
+        thread::sleep(Duration::from_millis(3000));
+        println!("[INFO] Stopping");
+        aston_martin.stop();
+        thread::sleep(Duration::from_millis(5000));
+        println!("[INFO] Reverse right");
+        aston_martin.reverse_right();
         thread::sleep(Duration::from_millis(3000));
     }
 }

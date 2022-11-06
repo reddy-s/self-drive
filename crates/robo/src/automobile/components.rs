@@ -1,9 +1,9 @@
 use std::error::Error;
 use rppal::gpio::{Gpio, OutputPin};
 use rppal::gpio::Level::{High, Low};
-use crate::automobile::activity::{Motor, Transmission};
+use crate::automobile::activity::{Motor, Steer, Transmission};
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 pub enum WheelOrientation {
   FrontLeft,
   FrontRight,
@@ -12,6 +12,7 @@ pub enum WheelOrientation {
 }
 
 #[derive(Debug)]
+#[allow(dead_code)]
 pub struct Wheel {
   orientation: WheelOrientation,
   positive_pin: OutputPin,
@@ -60,39 +61,54 @@ impl Drivetrain {
 
 impl Transmission<Drivetrain> for Drivetrain {
   fn drive(&mut self) -> () {
-    for wheel in self.wheels.iter_mut() {
-      println!("[INFO: Transmission: {:?}] Drive", wheel.orientation);
-      wheel.forward()
-    }
+    self.wheels.iter_mut().for_each(|wheel|{ wheel.forward() });
   }
 
   fn accelerate(&mut self) -> () {
     // TODO: PWM implementation coming soon
-    for wheel in self.wheels.iter_mut() {
-      println!("[INFO: Transmission: {:?}] Accelerate", wheel.orientation);
-      wheel.forward()
-    }
+    self.wheels.iter_mut().for_each(|wheel|{ wheel.forward() });
   }
 
   fn decelerate(&mut self) -> () {
     // TODO: PWM implementation coming soon
-    for wheel in self.wheels.iter_mut() {
-      println!("[INFO: Transmission: {:?}] Decelerate", wheel.orientation);
-      wheel.forward()
-    }
+    self.wheels.iter_mut().for_each(|wheel|{ wheel.forward() });
   }
 
   fn reverse(&mut self) -> () {
-    for wheel in self.wheels.iter_mut() {
-      println!("[INFO: Transmission: {:?}] Reversing", wheel.orientation);
-      wheel.reverse()
-    }
+    self.wheels.iter_mut().for_each(|wheel|{ wheel.reverse() });
   }
 
   fn stop(&mut self) -> () {
-    for wheel in self.wheels.iter_mut() {
-      println!("[INFO: Transmission: {:?}] Stopping", wheel.orientation);
-      wheel.stop()
-    }
+    self.wheels.iter_mut().for_each(|wheel|{ wheel.stop() })
+  }
+}
+
+impl Steer<Drivetrain> for Drivetrain {
+  fn right(&mut self) -> () {
+    self.stop();
+    self.wheels.iter_mut()
+      .filter(|wheel| wheel.orientation == WheelOrientation::FrontLeft || wheel.orientation == WheelOrientation::RearLeft)
+      .for_each(|wheel| wheel.forward())
+  }
+
+  fn left(&mut self) -> () {
+    self.stop();
+    self.wheels.iter_mut()
+      .filter(|wheel| wheel.orientation == WheelOrientation::FrontRight || wheel.orientation == WheelOrientation::RearRight)
+      .for_each(|wheel| wheel.forward())
+  }
+
+  fn reverse_right(&mut self) -> () {
+    self.stop();
+    self.wheels.iter_mut()
+      .filter(|wheel| wheel.orientation == WheelOrientation::FrontLeft || wheel.orientation == WheelOrientation::RearLeft)
+      .for_each(|wheel| wheel.reverse())
+  }
+
+  fn reverse_left(&mut self) -> () {
+    self.stop();
+    self.wheels.iter_mut()
+      .filter(|wheel| wheel.orientation == WheelOrientation::FrontRight || wheel.orientation == WheelOrientation::RearRight)
+      .for_each(|wheel| wheel.reverse())
   }
 }

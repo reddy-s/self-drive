@@ -32,4 +32,12 @@ impl Car {
   pub fn reverse(&mut self) -> () {
     self.engine.reverse()
   }
+
+  pub fn turn_left(&mut self) -> () { self.engine.turn_left() }
+
+  pub fn turn_right(&mut self) -> () { self.engine.turn_right() }
+
+  pub fn reverse_left(&mut self) -> () { self.engine.reverse_left() }
+
+  pub fn reverse_right(&mut self) -> () { self.engine.reverse_right() }
 }
