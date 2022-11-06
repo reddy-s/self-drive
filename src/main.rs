@@ -16,7 +16,7 @@ const GPIO_24: u8 = 24; // RR: In2
 
 fn main() -> Result<(), Box<dyn Error>> {
     let engine = Engine::new_from_gpio_pins(
-        GPIO_21, GPIO_20, GPIO_16, GPIO_12,GPIO_19, GPIO_26,GPIO_23, GPIO_24
+        GPIO_21, GPIO_20, GPIO_16, GPIO_12, GPIO_19, GPIO_26, GPIO_23, GPIO_24,
     )?;
 
     let mut aston_martin: Car = Car::new(engine)?;
