@@ -1,15 +1,16 @@
 use std::error::Error;
+
 use crate::automobile::activity::{Steer, Transmission};
 use crate::automobile::components::{Drivetrain, Wheel, WheelOrientation};
 
 #[derive(Debug)]
 pub struct Engine {
-  drive_train: Drivetrain
+  drive_train: Drivetrain,
 }
 
 impl Engine {
   pub fn new_from_drive_train(drive_train: Drivetrain) -> Result<Engine, Box<dyn Error>> {
-    let engine = Engine{ drive_train: drive_train };
+    let engine = Engine { drive_train: drive_train };
     Ok(engine)
   }
 

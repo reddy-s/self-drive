@@ -1,6 +1,8 @@
 use std::error::Error;
+
 use rppal::gpio::{Gpio, OutputPin};
 use rppal::gpio::Level::{High, Low};
+
 use crate::automobile::activity::{Motor, Steer, Transmission};
 
 #[derive(Debug, PartialEq)]
@@ -8,7 +10,7 @@ pub enum WheelOrientation {
   FrontLeft,
   FrontRight,
   RearLeft,
-  RearRight
+  RearRight,
 }
 
 #[derive(Debug)]
@@ -16,7 +18,7 @@ pub enum WheelOrientation {
 pub struct Wheel {
   orientation: WheelOrientation,
   positive_pin: OutputPin,
-  negative_pin: OutputPin
+  negative_pin: OutputPin,
 }
 
 impl Wheel {
@@ -24,7 +26,7 @@ impl Wheel {
     let wheel = Wheel {
       orientation: orientation,
       positive_pin: Gpio::new()?.get(gpio_pin_a)?.into_output(),
-      negative_pin: Gpio::new()?.get(gpio_pin_b)?.into_output()
+      negative_pin: Gpio::new()?.get(gpio_pin_b)?.into_output(),
     };
     Ok(wheel)
   }
@@ -49,7 +51,7 @@ impl Motor for Wheel {
 
 #[derive(Debug)]
 pub struct Drivetrain {
-  wheels: [Wheel; 4]
+  wheels: [Wheel; 4],
 }
 
 impl Drivetrain {
@@ -61,25 +63,25 @@ impl Drivetrain {
 
 impl Transmission<Drivetrain> for Drivetrain {
   fn drive(&mut self) -> () {
-    self.wheels.iter_mut().for_each(|wheel|{ wheel.forward() });
+    self.wheels.iter_mut().for_each(|wheel| { wheel.forward() });
   }
 
   fn accelerate(&mut self) -> () {
     // TODO: PWM implementation coming soon
-    self.wheels.iter_mut().for_each(|wheel|{ wheel.forward() });
+    self.wheels.iter_mut().for_each(|wheel| { wheel.forward() });
   }
 
   fn decelerate(&mut self) -> () {
     // TODO: PWM implementation coming soon
-    self.wheels.iter_mut().for_each(|wheel|{ wheel.forward() });
+    self.wheels.iter_mut().for_each(|wheel| { wheel.forward() });
   }
 
   fn reverse(&mut self) -> () {
-    self.wheels.iter_mut().for_each(|wheel|{ wheel.reverse() });
+    self.wheels.iter_mut().for_each(|wheel| { wheel.reverse() });
   }
 
   fn stop(&mut self) -> () {
-    self.wheels.iter_mut().for_each(|wheel|{ wheel.stop() })
+    self.wheels.iter_mut().for_each(|wheel| { wheel.stop() })
   }
 }
 

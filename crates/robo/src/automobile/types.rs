@@ -1,18 +1,20 @@
 use std::error::Error;
+
 use rppal::system::DeviceInfo;
+
 use crate::automobile::assembly::Engine;
 
 #[derive(Debug)]
 pub struct Car {
   platform: DeviceInfo,
-  engine: Engine
+  engine: Engine,
 }
 
 impl Car {
   pub fn new(engine: Engine) -> Result<Car, Box<dyn Error>> {
     let car = Car {
       platform: DeviceInfo::new()?,
-      engine: engine
+      engine: engine,
     };
     Ok(car)
   }
